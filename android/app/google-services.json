@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "532714324523",
+    "project_id": "noticar-39089",
+    "storage_bucket": "noticar-39089.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532714324523:android:7c86d7e8502fd54ab4206e",
+        "android_client_info": {
+          "package_name": "com.example.noti_auto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjmeBwhCQOkPwP4mWdR3G1FnC5EtDPd84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532714324523:android:84abab1e909ead67b4206e",
+        "android_client_info": {
+          "package_name": "com.utec"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjmeBwhCQOkPwP4mWdR3G1FnC5EtDPd84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
