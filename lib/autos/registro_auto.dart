@@ -1,155 +1,245 @@
 import 'dart:html';
+import 'dart:js_interop';
+import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:noti_auto/services/firebase_services.dart';
+import 'package:random_string/random_string.dart';
 
 class formregistroauto extends StatelessWidget {
-  const formregistroauto({super.key});
+  formregistroauto({super.key});
+
+  TextEditingController usuariocontrolador = new TextEditingController();
+  TextEditingController marcacontrolador = new TextEditingController();
+  TextEditingController modeloiocontrolador = new TextEditingController();
+  TextEditingController fabricacionocontrolador = new TextEditingController();
+  TextEditingController colorcontrolador = new TextEditingController();
+  TextEditingController estadocontrolador = new TextEditingController();
+  TextEditingController mecanicocontrolador = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 4, 37, 63),
-      appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 4, 37, 63),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            
-            Text("Registro de Vehiculos",
-            style: TextStyle(color: Colors.amber,
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold),
-            ),
-            ]
-            )
-            ),
-               body: Container(
-              
-                margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
-                
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Usuario',
-                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0)),
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      )
-                      ),
-                      Text('Marca',
-                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0)),
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      )
-                      ),
-                      Text('Modelo',
-                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0)),
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      )
-                      ),
-                      
-                      Text('Fecha de Fabricacion',
-                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0)),
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      )
-                      ),
-                      
-                      Text('Color',
-                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0)),
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      )
-                      ),
-                      
-                      Text('Estado',
-                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0)),
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      )
-                      ),
-                      
-                      Text('Mecanico',
-                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10.0)),
-                      child: TextField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                      )
-                      ),
-                    const  SizedBox(height: 30),
-                      Center(
-                        child: ElevatedButton(onPressed: (){
-                        
-                        }, child: Text('Registrar',
-                        style: TextStyle(fontSize: 20,
-                        fontWeight: FontWeight.bold),)),
-                      )
-
-
-                  ],
+        appBar: AppBar(
+            backgroundColor: Color.fromARGB(255, 4, 37, 63),
+            title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                "Registro de Vehiculos",
+                style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ])),
+        body: Container(
+          margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Usuario',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 245, 243, 243),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                
-              
-            )
-            
-            );
-         
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: usuariocontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'Marca',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 245, 243, 243),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(
+                    left: 10.0,
+                  ),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: marcacontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'Modelo',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 245, 243, 243),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: modeloiocontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'Fecha de Fabricacion',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 245, 243, 243),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: TextField(
+                    controller: fabricacionocontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'Color',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 245, 243, 243),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: colorcontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'Estado',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 241, 239, 239),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: estadocontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                'Mecanico',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 245, 243, 243),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: mecanicocontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              const SizedBox(height: 30),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () async {
+                      String id = randomAlphaNumeric(10);
+                      Map<String, dynamic> autoinfoMap = {
+                        "usuario": usuariocontrolador.text,
+                        "marca": marcacontrolador.text,
+                        "modelo": modeloiocontrolador.text,
+                        "fabricacion": fabricacionocontrolador.text,
+                        "estado": estadocontrolador.text,
+                        "color": colorcontrolador.text,
+                        "mecanico": mecanicocontrolador.text,
+                      };
+                      await DatabaseMethods()
+                          .addauto(autoinfoMap, id)
+                          .then((value) {
+                        Fluttertoast.showToast(
+                            msg: 'Vehiculo Registrado Correctamente');
+                      });
+                    },
+                    child: Text(
+                      'Registrar',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
+              )
+            ],
+          ),
+        ));
   }
 }
