@@ -20,3 +20,17 @@ queryauto.docs.forEach((element) {
 return auto;
 
 }
+
+
+// ignore: camel_case_types
+class DatabaseMethods{
+
+  Future addauto(
+    Map<String, dynamic> autoinfo, String id) async{
+      return await FirebaseFirestore.instance
+      .collection('auto')
+      .doc(id)
+      .set(autoinfo);
+    }
+
+}

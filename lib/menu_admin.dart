@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:noti_auto/autos/registro_auto.dart';
 import 'package:noti_auto/main.dart';
 import 'package:noti_auto/services/firebase_services.dart';
 
@@ -14,6 +15,7 @@ class adminmenu extends StatefulWidget {
 class _adminmenuState extends State<adminmenu> {
   @override
   Widget build(BuildContext context) {
+
     final User? usuario = FirebaseAuth.instance.currentUser;
     String? email = "";
 
@@ -66,14 +68,46 @@ class _adminmenuState extends State<adminmenu> {
                   ),
                 ),
               ),
-              Container(
+                Container(
                 margin: EdgeInsets.only(top: 25),
                 height: 50,
                 width: 350,
                 child: ElevatedButton(
                   onPressed: () {},
                   child: Text(
-                    'Mantenimientos',
+                    'Talleres',
+                    //style: TextStyle(color: Colors.white, fontSize: 20,),
+                    style: TextStyle(
+                      fontSize: 19,
+                      color: Color.fromARGB(255, 2, 2, 2),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Color.fromARGB(255, 216, 160, 39),
+                    backgroundColor: const Color.fromARGB(209, 206, 121, 25),
+                    shadowColor: Color.fromARGB(115, 8, 8, 8),
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      side: BorderSide(
+                        color: const Color.fromARGB(179, 0, 0, 0),
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+                Container(
+                margin: EdgeInsets.only(top: 25),
+                height: 50,
+                width: 350,
+                child: ElevatedButton(
+                  onPressed: () {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => new formregistroauto()));
+                  },
+                  child: Text(
+                    'Autos',
                     //style: TextStyle(color: Colors.white, fontSize: 20,),
                     style: TextStyle(
                       fontSize: 19,
@@ -103,7 +137,7 @@ class _adminmenuState extends State<adminmenu> {
                 child: ElevatedButton(
                   onPressed: () {},
                   child: Text(
-                    'Talleres',
+                    'Mantenimientos',
                     //style: TextStyle(color: Colors.white, fontSize: 20,),
                     style: TextStyle(
                       fontSize: 19,
@@ -166,28 +200,27 @@ class _adminmenuState extends State<adminmenu> {
         backgroundColor: Color.fromARGB(255, 4, 37, 63),
       ),
       backgroundColor: Color.fromARGB(255, 4, 37, 63),
-      body: FutureBuilder( 
-        future: getAuto(),
-        builder: (context, snapshot){
-          if(snapshot.hasData){
-          return ListView.builder(
-            itemCount: snapshot.data?.length,
-            itemBuilder: (context, Index){
-              return Text(
-                snapshot.data?[Index]['marca']
-              );
-            },
-          );
-        }
-        else{
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        } ,
-        
-
-      ),
+      body: Container(
+        margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 30),
+        child: Column(
+          children:[
+            Material(
+              elevation: 5,
+              borderRadius:  BorderRadius.circular(10),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(color: Colors.white, 
+                borderRadius: BorderRadius.circular(10)),
+                child: Column(children: [
+                  Text('Marca: Toyota', style: TextStyle(
+                    color: Colors.white, 
+                    fontSize: 20, 
+                    fontWeight: FontWeight.bold),)
+                ],),
+              ),
+            )
+          ],
+        ),)
     );
   }
 
