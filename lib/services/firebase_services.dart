@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -33,4 +34,11 @@ class DatabaseMethods{
       .set(autoinfo);
     }
 
+Future<Stream<QuerySnapshot>> getcars() async{
+  FirebaseFirestore db=FirebaseFirestore.instance;
+  return  await db.collection('auto').snapshots();
+  
+  
 }
+
+

@@ -1,5 +1,5 @@
-import 'dart:html';
-import 'dart:js_interop';
+//import 'dart:html';
+//import 'dart:js_interop';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -7,10 +7,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:noti_auto/services/firebase_services.dart';
 import 'package:random_string/random_string.dart';
+import 'package:provider/provider.dart';
 
 class formregistroauto extends StatelessWidget {
   formregistroauto({super.key});
 
+TextEditingController placacontrolador = new TextEditingController();
   TextEditingController usuariocontrolador = new TextEditingController();
   TextEditingController marcacontrolador = new TextEditingController();
   TextEditingController modeloiocontrolador = new TextEditingController();
@@ -34,11 +36,39 @@ class formregistroauto extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
             ])),
-        body: Container(
-          margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20),
-          child: Column(
+        body: ListView(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(12, 10, 12, 4),
+              child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Placa',
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 245, 243, 243),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    controller: placacontrolador,
+                    decoration: InputDecoration(border: InputBorder.none),
+                  )),
+              SizedBox(
+                height: 15.0,
+              ),
               Text(
                 'Usuario',
                 style: TextStyle(
@@ -164,31 +194,7 @@ class formregistroauto extends StatelessWidget {
               SizedBox(
                 height: 15.0,
               ),
-              Text(
-                'Estado',
-                style: TextStyle(
-                    color: const Color.fromARGB(255, 241, 239, 239),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Container(
-                  padding: EdgeInsets.only(left: 10.0),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: TextField(
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                    controller: estadocontrolador,
-                    decoration: InputDecoration(border: InputBorder.none),
-                  )),
-              SizedBox(
-                height: 15.0,
-              ),
+              
               Text(
                 'Mecanico',
                 style: TextStyle(
@@ -217,11 +223,12 @@ class formregistroauto extends StatelessWidget {
                     onPressed: () async {
                       String id = randomAlphaNumeric(10);
                       Map<String, dynamic> autoinfoMap = {
+                        "placa" : placacontrolador.text,
                         "usuario": usuariocontrolador.text,
                         "marca": marcacontrolador.text,
                         "modelo": modeloiocontrolador.text,
                         "fabricacion": fabricacionocontrolador.text,
-                        "estado": estadocontrolador.text,
+                        "estado": "asignado",
                         "color": colorcontrolador.text,
                         "mecanico": mecanicocontrolador.text,
                       };
@@ -231,15 +238,29 @@ class formregistroauto extends StatelessWidget {
                         Fluttertoast.showToast(
                             msg: 'Vehiculo Registrado Correctamente');
                       });
+
+                      placacontrolador.clear();
+                      usuariocontrolador.clear();
+                      marcacontrolador.clear();
+                      modeloiocontrolador.clear();
+                      fabricacionocontrolador.clear();
+                      colorcontrolador.clear();
+                      mecanicocontrolador.clear();
                     },
                     child: Text(
                       'Registrar',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20,color: Colors.black, fontWeight: FontWeight.bold),
+
+                          
                     )),
               )
             ],
           ),
-        ));
+          ),
+          ]
+        )
+          
+        );
   }
 }

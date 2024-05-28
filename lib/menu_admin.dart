@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:noti_auto/autos/mainauto.dart';
 import 'package:noti_auto/autos/registro_auto.dart';
 import 'package:noti_auto/main.dart';
 import 'package:noti_auto/services/firebase_services.dart';
@@ -104,7 +105,7 @@ class _adminmenuState extends State<adminmenu> {
                 width: 350,
                 child: ElevatedButton(
                   onPressed: () {
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => new formregistroauto()));
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => new mainauto()));
                   },
                   child: Text(
                     'Autos',
