@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class formregistroauto extends StatelessWidget {
   formregistroauto({super.key});
 
-TextEditingController placacontrolador = new TextEditingController();
+  TextEditingController placacontrolador = new TextEditingController();
   TextEditingController usuariocontrolador = new TextEditingController();
   TextEditingController marcacontrolador = new TextEditingController();
   TextEditingController modeloiocontrolador = new TextEditingController();
