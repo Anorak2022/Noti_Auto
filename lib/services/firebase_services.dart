@@ -37,9 +37,12 @@ class DatabaseMethods{
 
 Future<Stream<QuerySnapshot>> getcars() async{
   FirebaseFirestore db=FirebaseFirestore.instance;
-  return  await db.collection('auto').snapshots();
+  return await db.collection('auto').snapshots();
 
- 
+}
+
+Future updatecars(String id, Map<String, dynamic> updateinfo) async{
+  return FirebaseFirestore.instance.collection('auto').doc(id).update(updateinfo);
 }
 
 }

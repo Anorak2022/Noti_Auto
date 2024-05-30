@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,18 +7,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:noti_auto/autos/registro_auto.dart';
 import 'package:noti_auto/registro.dart';
+import 'package:noti_auto/services/firebase_services.dart';
 
 class mainauto extends StatelessWidget {
   mainauto({super.key});
 
   CollectionReference _autos = FirebaseFirestore.instance.collection("auto");
 
-void _deletecar(String user){
-  _autos.doc(user).delete();
-}
+  void _deletecar(String user) {
+    _autos.doc(user).delete();
+  }
+
+  TextEditingController placacontrolador = new TextEditingController();
+  TextEditingController usuariocontrolador = new TextEditingController();
+  TextEditingController marcacontrolador = new TextEditingController();
+  TextEditingController modeloiocontrolador = new TextEditingController();
+  TextEditingController fabricacionocontrolador = new TextEditingController();
+  TextEditingController colorcontrolador = new TextEditingController();
+  TextEditingController estadocontrolador = new TextEditingController();
+  TextEditingController mecanicocontrolador = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final User? usuario = FirebaseAuth.instance.currentUser;
+
     String? email = "";
     String? estado = "";
 
@@ -69,65 +83,396 @@ void _deletecar(String user){
                       itemBuilder: (context, index) {
                         var user = snapshot.data!.docs[index];
                         estado = user['estado'];
-                        Widget estadocolores(){
-                          if(estado=='asignado'){
-                            return Text(
-                              "Estado: " + user['estado'],
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 31, 179, 75),
-                                  fontWeight: FontWeight.bold));
-                          } 
-                          else{
-                             if (estado == 'enproceso') {
+
+                        Future editcars(String id) => showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  content:  Container(
+                                    child:  SingleChildScrollView(
+                                      child:  Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Icon(Icons.cancel),
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                            'Placa',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10.0),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: const Color.fromARGB(
+                                                        255, 0, 0, 0)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: TextField(
+                                                style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                controller: placacontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Text(
+                                            'Usuario',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10.0),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: const Color.fromARGB(
+                                                        255, 0, 0, 0)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: TextField(
+                                                style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                controller: usuariocontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Text(
+                                            'Marca',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding: EdgeInsets.only(
+                                                left: 10.0,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              child: TextField(
+                                                style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                controller: marcacontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Text(
+                                            'Modelo',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10.0),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              child: TextField(
+                                                style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                controller: modeloiocontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Text(
+                                            'Fecha de Fabricacion',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10.0),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              child: TextField(
+                                                controller:
+                                                    fabricacionocontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Text(
+                                            'Color',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10.0),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              child: TextField(
+                                                style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                controller: colorcontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          Text(
+                                            'Estado',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10.0),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              child: TextField(
+                                                style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                controller: estadocontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Text(
+                                            'Mecanico',
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10.0),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)),
+                                              child: TextField(
+                                                style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                controller: mecanicocontrolador,
+                                                decoration: InputDecoration(
+                                                    border: InputBorder.none),
+                                              )),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: ()async {
+                                              Map<String, dynamic> updateinfo={
+                                                'placa': placacontrolador.text,
+                                                'usuario':usuariocontrolador.text,
+                                                'marca': marcacontrolador.text,
+                                                'modelo': modeloiocontrolador.text,
+                                                'fabricacion': fabricacionocontrolador.text,
+                                                'color': colorcontrolador.text,
+                                                'estado': estadocontrolador.text,
+                                                'mecanico':mecanicocontrolador.text,
+                                                'id': id,
+
+                                              };
+                                              await DatabaseMethods().updatecars(id, updateinfo).then((value){
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                            child: Text(
+                                              'Actualizar',
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Color.fromARGB(
+                                                  255, 216, 160, 39),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      209, 206, 121, 25),
+                                              shadowColor:
+                                                  Color.fromARGB(115, 8, 8, 8),
+                                              elevation: 8,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                side: BorderSide(
+                                                  color: const Color.fromARGB(
+                                                      179, 0, 0, 0),
+                                                  width: 2,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ));
+
+                        Widget estadocolores() {
+                          if (estado == 'asignado') {
+                            return Text("Estado: " + user['estado'],
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 31, 179, 75),
+                                    fontWeight: FontWeight.bold));
+                          } else {
+                            if (estado == 'enproceso') {
                               return Text(
                                 "Estado: " + user['estado'],
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 212, 115, 4),
                                     fontWeight: FontWeight.bold),
                               );
-
-                              } else{
-                                 if (estado == 'finalizado') {
+                            } else {
+                              if (estado == 'finalizado') {
                                 return Text(
                                   "Estado: " + user['estado'],
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 87, 201, 216),
                                       fontWeight: FontWeight.bold),
                                 );
-
                               }
-                              }
+                            }
                           }
                           return Text(estado!);
-
                         }
-                        return
-                        Dismissible(
+
+                        return Dismissible(
                           key: Key(user.id),
                           background: Container(
                             color: Colors.red,
                             alignment: Alignment.centerRight,
                             padding: EdgeInsets.only(right: 16),
-                            child: Icon(Icons.delete, color: Colors.white,),
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
                           ),
-                          onDismissed: (direction){
+                          onDismissed: (direction) {
                             _deletecar(user.id);
-                          } ,
+                          },
                           direction: DismissDirection.endToStart,
-                          
                           child: Card(
                             elevation: 4,
                             margin: EdgeInsets.symmetric(vertical: 8),
                             child: Column(
                               children: [
-                             
                                 Container(
                                   width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                           mainAxisAlignment:
@@ -156,9 +501,28 @@ void _deletecar(String user){
                                             ),
                                             Column(children: [
                                               IconButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    placacontrolador.text =
+                                                        user['placa'];
+                                                    usuariocontrolador.text =
+                                                        user['usuario'];
+                                                    marcacontrolador.text =
+                                                        user['marca'];
+                                                    modeloiocontrolador.text =
+                                                        user['modelo'];
+                                                    fabricacionocontrolador
+                                                            .text =
+                                                        user['fabricacion'];
+                                                    colorcontrolador.text =
+                                                        user['color'];
+                                                    mecanicocontrolador.text =
+                                                        user['mecanico'];
+                                                    estadocontrolador.text =
+                                                        user['estado'];
+
+                                                    editcars(user["id"]);
+                                                  },
                                                   icon: Icon(Icons.edit)),
-                                              
                                               estadocolores()
                                             ])
                                           ])
@@ -176,5 +540,4 @@ void _deletecar(String user){
       ),
     );
   }
-
 }

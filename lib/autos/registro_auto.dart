@@ -223,6 +223,7 @@ class formregistroauto extends StatelessWidget {
                     onPressed: () async {
                       String id = randomAlphaNumeric(10);
                       Map<String, dynamic> autoinfoMap = {
+                        "id": id,
                         "placa" : placacontrolador.text,
                         "usuario": usuariocontrolador.text,
                         "marca": marcacontrolador.text,
