@@ -1,4 +1,4 @@
-import 'dart:js';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -464,21 +464,28 @@ class mainauto extends StatelessWidget {
                             elevation: 4,
                             margin: EdgeInsets.symmetric(vertical: 8),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
+                                  alignment: Alignment.center,
                                   width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  
                                     children: [
+                                      
                                       Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                        
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        
                                           children: [
-                                            Text(
+                                            Column(
+                                              
+                                              children: [
+                                              Text(
                                               "Placa:" + user['placa'],
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -499,7 +506,8 @@ class mainauto extends StatelessWidget {
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            Column(children: [
+
+                                            Row(children: [
                                               IconButton(
                                                   onPressed: () {
                                                     placacontrolador.text =
@@ -528,8 +536,10 @@ class mainauto extends StatelessWidget {
                                           ])
                                     ],
                                   ),
+                                    ]
                                 )
-                              ],
+                            )
+                            ],
                             ),
                           ),
                         );

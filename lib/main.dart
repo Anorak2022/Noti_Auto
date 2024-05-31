@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:noti_auto/menu_admin.dart';
 import 'firebase_options.dart';
 
-import 'package:noti_auto/inicio.dart';
+import 'package:noti_auto/usuario/inicio.dart';
 import 'package:noti_auto/registro.dart';
 import 'package:noti_auto/auxiliar.dart';
 import 'package:google_sign_in/google_sign_in.dart';

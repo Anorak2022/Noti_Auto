@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:noti_auto/inicio.dart';
+import 'package:noti_auto/usuario/inicio.dart';
 import 'package:noti_auto/auxiliar.dart';
 
 
