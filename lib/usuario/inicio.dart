@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:noti_auto/main.dart';
+import 'package:noti_auto/usuario/agregarautousuario.dart';
+import 'package:noti_auto/usuario/mainusuario.dart';
 import 'package:noti_auto/usuario/usuariomenu.dart';
 
 class Home extends StatelessWidget {
@@ -43,7 +45,9 @@ class Home extends StatelessWidget {
                 height: 50,
                 width: 350,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => new mainusuario()));
+                  },
                   child: Text(
                     'Mis Autos',
                     //style: TextStyle(color: Colors.white, fontSize: 20,),
