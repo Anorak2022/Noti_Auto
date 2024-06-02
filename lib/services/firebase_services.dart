@@ -35,6 +35,14 @@ class DatabaseMethods{
       .set(autoinfo);
     }
 
+     Future addtaller(
+    Map<String, dynamic> tallerinfo, String id) async{
+      return await FirebaseFirestore.instance
+      .collection('taller')
+      .doc(id)
+      .set(tallerinfo);
+    }
+
 Future<Stream<QuerySnapshot>> getcars() async{
   FirebaseFirestore db=FirebaseFirestore.instance;
   return await db.collection('auto').snapshots();
@@ -45,4 +53,7 @@ Future updatecars(String id, Map<String, dynamic> updateinfo) async{
   return FirebaseFirestore.instance.collection('auto').doc(id).update(updateinfo);
 }
 
+Future updatetaller(String id, Map<String, dynamic> updateinfo) async{
+  return FirebaseFirestore.instance.collection('taller').doc(id).update(updateinfo);
+}
 }

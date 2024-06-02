@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:noti_auto/Talleres/tallereslist.dart';
 import 'package:noti_auto/autos/mainauto.dart';
 import 'package:noti_auto/autos/registro_auto.dart';
 import 'package:noti_auto/main.dart';
 import 'package:noti_auto/services/firebase_services.dart';
+import 'package:noti_auto/usuario/mainusuario.dart';
 
 class adminmenu extends StatefulWidget {
   const adminmenu({super.key});
@@ -74,7 +76,9 @@ class _adminmenuState extends State<adminmenu> {
                 height: 50,
                 width: 350,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => new maintaller()));
+                  },
                   child: Text(
                     'Talleres',
                     //style: TextStyle(color: Colors.white, fontSize: 20,),
